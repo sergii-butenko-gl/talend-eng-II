@@ -6,3 +6,7 @@ def foo2():
 
 def foo3():
     pass
+
+
+def foo4():
+    pass
