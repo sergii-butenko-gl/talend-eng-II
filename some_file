@@ -10,3 +10,7 @@ def foo3():
 
 def foo4():
     pass
+
+
+def foo5():
+    pass
