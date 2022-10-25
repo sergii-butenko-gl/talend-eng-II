@@ -1,2 +1,2 @@
 def foo():
-    assert 'person1' == 'person1'
+    assert 'person2' == 'person2'
