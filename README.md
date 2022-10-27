@@ -1,4 +1,3 @@
 # talend-eng-II
 
-
-NOW IT CAN READ JSON
+please install selenium, pytest, ect
