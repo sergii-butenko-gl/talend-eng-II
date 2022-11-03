@@ -1,9 +1,12 @@
+import os
+
 def somefunction():
     assert True is True
 
 
 def test_always_passes():
-    assert True is True
+    user = os.getenv("USERNAME", None)
+    assert user == "USER_A"
 
 
 def test_always_failed():
