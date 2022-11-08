@@ -1,17 +1,11 @@
+import json
 import os
 from typing import Any
-import json
 
-
-class BaseProviderClass:
-
-    @staticmethod
-    def get(item_name: str) -> Any:
-        raise NotImplementedError("get method is not implemented")
+from src.config.base_provider import BaseProviderClass
 
 
 class OSConfigProvider(BaseProviderClass):
-
     @staticmethod
     def get(item_name: str) -> Any:
         value = os.getenv(item_name)
@@ -19,7 +13,6 @@ class OSConfigProvider(BaseProviderClass):
 
 
 class JSONConfigProvider(BaseProviderClass):
-
     @staticmethod
     def _read_config(config_path):
         with open(config_path) as json_file:
@@ -27,7 +20,9 @@ class JSONConfigProvider(BaseProviderClass):
 
     @staticmethod
     def get(item_name: str) -> Any:
-        value = JSONConfigProvider._read_config("/home/sbutenko/repos/LnD/talend-eng-II/envs_configs/dev.json")
+        value = JSONConfigProvider._read_config(
+            "/home/sbutenko/repos/LnD/talend-eng-II/envs_configs/dev.json"
+        )
         # return value[item_name]
         return value.get(item_name)
 
@@ -44,9 +39,18 @@ class Config:
         self._register("BASE_URL")
         self._register("SQL_CONNECTION_STRING")
         self._register("NOSQL_CONNECTION_STRING")
+        self._register("SHARED_USER_NAME")
+        self._register("SHARED_EMAIL")
 
     def get(self, item_name: str) -> Any:
         return self.conf_dict[item_name]
+
+    # python way
+    def __getattr__(self, item):
+        if item not in self.conf_dict:
+            raise AttributeError("Please register var before usage")
+
+        return self.conf_dict[item]
 
     def _register(self, item_name: str) -> None:
         for provider in self.config_providers:
@@ -56,8 +60,3 @@ class Config:
                 return
 
         raise ValueError(f"{item_name} name is missing in config providers")
-
-
-config = Config([OSConfigProvider, JSONConfigProvider])
-print(config.get('NOSQL_CONNECTION_STRING'))
-# print(config.NOSQL_CONNECTION_STRING)

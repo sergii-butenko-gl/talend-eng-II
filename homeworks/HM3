@@ -1,0 +1,9 @@
+HOMEWORK 3
+
+1. Create a config module for framework
+2. Create a heirarhical providers:
+1.1. Json
+1.2. OS
+3. Make framework raise an expection if variable you need is absent in any available resources
+4. Create the documentation in readme file
+5. Cover all the methods and class with docstring
