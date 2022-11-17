@@ -1,5 +1,5 @@
 {
-    "BASE_URL": "google.com",
+    "BASE_URL": "https://api.github.com",
     "SQL_CONNECTION_STRING": "NOSQL://username@ip:db_name",
     "NOSQL_CONNECTION_STRING": "NOSQL_CONNECTION_STRING_FOR_TEST",
     "SHARED_USER_NAME": "sergii",

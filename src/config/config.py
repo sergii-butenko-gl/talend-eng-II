@@ -60,3 +60,6 @@ class Config:
                 return
 
         raise ValueError(f"{item_name} name is missing in config providers")
+
+
+config = Config([OSConfigProvider, JSONConfigProvider])
