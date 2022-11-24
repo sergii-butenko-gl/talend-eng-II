@@ -36,11 +36,12 @@ class Config:
         self.config_providers = config_providers
 
         self.conf_dict = {}
-        self._register("BASE_URL")
+        self._register("BASE_URL_API")
+        self._register("BASE_URL_UI")
         self._register("SQL_CONNECTION_STRING")
         self._register("NOSQL_CONNECTION_STRING")
         self._register("SHARED_USER_NAME")
-        self._register("SHARED_EMAIL")
+        self._register("SHARED_USER_PASSWORD")
 
     def get(self, item_name: str) -> Any:
         return self.conf_dict[item_name]

@@ -1,4 +1,5 @@
-from src.applications.GitHubApi import GitHubApi
+from src.applications.git_hub_ui import GitHubUI
+from src.applications.git_hub_api import GitHubApi
 from src.models.user import User
 from src.config.config import Config, JSONConfigProvider, OSConfigProvider
 
@@ -33,3 +34,11 @@ def github_api():
     yield github_api
 
     github_api.logout()
+
+
+@pytest.fixture
+def github_ui_app():
+    github_ui_app = GitHubUI()
+    github_ui_app.open_base_page()
+
+    yield github_ui_app
