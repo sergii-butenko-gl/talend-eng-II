@@ -1,11 +1,10 @@
+from src.providers.browsers.browsers_provider import BrowserProvider
 from src.applications.git_hub_ui import GitHubUI
 from src.applications.git_hub_api import GitHubApi
 from src.models.user import User
-from src.config.config import Config, JSONConfigProvider, OSConfigProvider
+from src.config.config import config
 
 import pytest
-
-config = Config([OSConfigProvider, JSONConfigProvider])
 
 
 @pytest.fixture(scope="session")
@@ -37,8 +36,23 @@ def github_api():
 
 
 @pytest.fixture
-def github_ui_app():
-    github_ui_app = GitHubUI()
+def github_ui_app(request):
+
+    # browser = request.config.getoption("--browser")
+    browser = config.BROWSER
+    driver = BrowserProvider.get_driver(browser_name=browser)
+
+    github_ui_app = GitHubUI(driver)
     github_ui_app.open_base_page()
 
     yield github_ui_app
+
+
+# def pytest_addoption(parser):
+#     parser.addoption(
+#         "--browser",
+#         action="store",
+#         choices=["chrome", "firefox", "edge"],
+#         default="chrome",
+#         help="choose firefox or chrome",
+#     )

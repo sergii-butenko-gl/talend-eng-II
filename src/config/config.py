@@ -5,6 +5,16 @@ from typing import Any
 from src.config.base_provider import BaseProviderClass
 
 
+class DictConfigProvider(BaseProviderClass):
+
+    def __init__(self, input_values: dict) -> None:
+        super().__init__()
+        self.values = input_values
+
+    def get(self, item_name: str) -> Any:
+        return self.values[item_name]
+
+
 class OSConfigProvider(BaseProviderClass):
     @staticmethod
     def get(item_name: str) -> Any:
@@ -42,6 +52,7 @@ class Config:
         self._register("NOSQL_CONNECTION_STRING")
         self._register("SHARED_USER_NAME")
         self._register("SHARED_USER_PASSWORD")
+        self._register("BROWSER")
 
     def get(self, item_name: str) -> Any:
         return self.conf_dict[item_name]
@@ -63,4 +74,5 @@ class Config:
         raise ValueError(f"{item_name} name is missing in config providers")
 
 
-config = Config([OSConfigProvider, JSONConfigProvider])
+dict_confprovider = DictConfigProvider({'BROWSER': 'chrome'})
+config = Config([OSConfigProvider, JSONConfigProvider, dict_confprovider])

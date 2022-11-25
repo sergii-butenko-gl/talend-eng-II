@@ -8,8 +8,8 @@ class GitHubUI(BaseUIApp):
     # 
     # driver.get(config.BASE_URL_UI)
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, driver) -> None:
+        super().__init__(driver=driver)
         pass
 
     def open_base_page(self):
@@ -24,7 +24,6 @@ class GitHubUI(BaseUIApp):
         self.click(By.NAME, 'commit')
 
         time.sleep(5)
-
 
     def logout(self):
         pass
