@@ -38,21 +38,22 @@ def github_api():
 @pytest.fixture
 def github_ui_app(request):
 
-    # browser = request.config.getoption("--browser")
-    browser = config.BROWSER
+    browser = request.config.getoption("--browser")
+    # browser = config.BROWSER
     driver = BrowserProvider.get_driver(browser_name=browser)
 
     github_ui_app = GitHubUI(driver)
     github_ui_app.open_base_page()
+    github_ui_app.login_page.login(config.USERNAME, config.PASSWORD)
 
     yield github_ui_app
 
 
-# def pytest_addoption(parser):
-#     parser.addoption(
-#         "--browser",
-#         action="store",
-#         choices=["chrome", "firefox", "edge"],
-#         default="chrome",
-#         help="choose firefox or chrome",
-#     )
+def pytest_addoption(parser):
+    parser.addoption(
+        "--browser",
+        action="store",
+        choices=["chrome", "firefox", "edge"],
+        default="chrome",
+        help="choose firefox or chrome",
+    )

@@ -1,32 +1,23 @@
+from src.pages.forgot_password_page import ForgorPasswordPage
+from src.pages.signup_page import SigupPage
+from src.pages.login_in_page import LoginPage
 from src.applications.base_ui_app import BaseUIApp
 from src.config.config import config
-import time
-from selenium.webdriver.common.by import By
 
 
 class GitHubUI(BaseUIApp):
-    # 
-    # driver.get(config.BASE_URL_UI)
+
+    logout_button = (By.ID, "lskdnfkjsdnf")
 
     def __init__(self, driver) -> None:
         super().__init__(driver=driver)
-        pass
+        self.login_page = LoginPage(self)
+        self.signup_page = SigupPage(self)
+        self.forgot_password_page = ForgorPasswordPage(self)
+        self.header_compoments = "ksjdabfkjbasdkjfn"
 
     def open_base_page(self):
         self.open_page(config.BASE_URL_UI)
 
-    def goto_login_page(self):
-        self.open_page(config.BASE_URL_UI + '/login')
-
-    def login(self, username, password):
-        self.enter_text(By.ID, 'login_field', username)
-        self.enter_text(By.ID, 'password', password)
-        self.click(By.NAME, 'commit')
-
-        time.sleep(5)
-
     def logout(self):
-        pass
-    
-    def check_title(self):
-        pass
+        self.click(self.logout_button)
