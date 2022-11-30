@@ -31,7 +31,7 @@ class JSONConfigProvider(BaseProviderClass):
     @staticmethod
     def get(item_name: str) -> Any:
         value = JSONConfigProvider._read_config(
-            "/home/sbutenko/repos/LnD/talend-eng-II/envs_configs/dev.json"
+            "/framework/envs_configs/dev.json"
         )
         # return value[item_name]
         return value.get(item_name)

@@ -12,7 +12,7 @@ class GitHubApi:
         pass
 
     def _form_url(self, path):
-        return urljoin(config.BASE_URL, path)
+        return urljoin(config.BASE_URL_API, path)
 
     def logout(self) -> bool:
         print("LOGOUT HTTP REQUESTS")
