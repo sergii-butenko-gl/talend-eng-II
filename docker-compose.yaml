@@ -1,51 +1,29 @@
 version: "3"
 services:
-  selenium-hub:
-    image: selenium/hub:4.6.0-20221104
-    container_name: selenium-hub
-    hostname: selenium-hub
-    ports:
-      - "4444:4444"
-    environment:
-      GRID_MAX_SESSION: 5
-      SE_OPTS: "-timeout 7200"
-    networks:
-      - selenium-grid
-
   chrome:
     image: selenium/node-chrome:4.6.0-20221104
-    container_name: selenium-chrome
-    hostname: selenium-chrome
-    environment:
-      HUB_HOST: selenium-hub
-      HUB_PORT: 4444
-      NODE_MAX_INSTANCES: 5
-      NODE_MAX_SESSION: 5
-    volumes:
-      - /mnt/cosmosid-artifacts/grid/shm:/dev/shm
+    shm_size: 2gb
     depends_on:
       - selenium-hub
-    shm_size: 2gb
-    networks:
-      - selenium-grid
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
 
   firefox:
     image: selenium/node-firefox:4.6.0-20221104
-    container_name: selenium-firefox
-    hostname: selenium-firefox
-    environment:
-      HUB_HOST: selenium-hub
-      HUB_PORT: 4444
-      NODE_MAX_INSTANCES: 5
-      NODE_MAX_SESSION: 5
-    volumes:
-      - /mnt/cosmosid-artifacts/grid/shm:/dev/shm
+    shm_size: 2gb
     depends_on:
       - selenium-hub
-    shm_size: 2gb
-    networks:
-      - selenium-grid
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
 
-networks:
-  selenium-grid:
-    driver:  bridge
+  selenium-hub:
+    image: selenium/hub:4.6.0-20221104
+    container_name: selenium-hub
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
