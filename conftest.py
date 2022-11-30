@@ -39,12 +39,11 @@ def github_api():
 def github_ui_app(request):
 
     browser = request.config.getoption("--browser")
-    # browser = config.BROWSER
     driver = BrowserProvider.get_driver(browser_name=browser)
 
     github_ui_app = GitHubUI(driver)
     github_ui_app.open_base_page()
-    github_ui_app.login_page.login(config.USERNAME, config.PASSWORD)
+    github_ui_app.login_page.login(config.SHARED_USER_NAME, config.SHARED_USER_PASSWORD)
 
     yield github_ui_app
 
@@ -53,7 +52,7 @@ def pytest_addoption(parser):
     parser.addoption(
         "--browser",
         action="store",
-        choices=["chrome", "firefox", "edge"],
+        choices=["chrome", "firefox", "edge", "remote_chrome"],
         default="chrome",
-        help="choose firefox or chrome",
+        help="choose firefox or chrome or remote_chrome",
     )

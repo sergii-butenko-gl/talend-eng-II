@@ -31,7 +31,8 @@ class JSONConfigProvider(BaseProviderClass):
     @staticmethod
     def get(item_name: str) -> Any:
         value = JSONConfigProvider._read_config(
-            "/framework/envs_configs/dev.json"
+            # "/framework/envs_configs/dev.json"
+            "/home/sbutenko/repos/LnD/talend-eng-II/envs_configs/dev.json"
         )
         # return value[item_name]
         return value.get(item_name)
@@ -53,6 +54,7 @@ class Config:
         self._register("SHARED_USER_NAME")
         self._register("SHARED_USER_PASSWORD")
         self._register("BROWSER")
+        self._register("SELENIUM_GRID_URL")
 
     def get(self, item_name: str) -> Any:
         return self.conf_dict[item_name]
@@ -74,5 +76,9 @@ class Config:
         raise ValueError(f"{item_name} name is missing in config providers")
 
 
-dict_confprovider = DictConfigProvider({'BROWSER': 'chrome'})
+dict_confprovider = DictConfigProvider({
+    'BROWSER': 'chrome',
+    'SELENIUM_GRID_URL': 'http://0.0.0.0:4444/wd/hub',
+    })
+
 config = Config([OSConfigProvider, JSONConfigProvider, dict_confprovider])

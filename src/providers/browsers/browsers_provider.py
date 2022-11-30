@@ -1,6 +1,7 @@
 from src.providers.browsers.library.edge_browser import EdgeBrowser
 from src.providers.browsers.library.chrome_browser import ChromeBrowser
 from src.providers.browsers.library.firefox_browser import FirefoxBrowser
+from src.providers.browsers.library.remote_chrome_browser import RemoteChromeBrowser
 
 
 class BrowserProvider:
@@ -8,6 +9,7 @@ class BrowserProvider:
         'chrome': ChromeBrowser,
         'firefox': FirefoxBrowser,
         'edge': EdgeBrowser,
+        'remote_chrome': RemoteChromeBrowser,
     }
 
     @classmethod
