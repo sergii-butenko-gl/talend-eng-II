@@ -6,7 +6,7 @@ from src.config.config import config
 
 
 class GitHubUI(BaseUIApp):
-    
+
     def __init__(self, driver) -> None:
         super().__init__(driver=driver)
         self.login_page = LoginPage(self)

@@ -16,6 +16,7 @@ class LoginPage:
         self.ui_app = ui_app
 
     def login(self, username, password):
+        self.goto_page()
         self.ui_app.enter_text(self.username_field, username)
         self.ui_app.enter_text(self.password_field, password)
         self.ui_app.click(self.sign_in_button)

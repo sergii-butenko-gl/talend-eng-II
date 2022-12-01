@@ -16,7 +16,7 @@ def database_connection():
 
 @pytest.fixture(scope="class")
 def user_fixture():
-    user = User(config.SHARED_USER_NAME, config.SHARED_EMAIL)
+    user = User(config.SHARED_USER_NAME, config.SHARED_PASSWORD)
     # user.create_in_database()
 
     yield user
@@ -47,12 +47,14 @@ def github_ui_app(request):
 
     yield github_ui_app
 
+    github_ui_app.close()
+
 
 def pytest_addoption(parser):
     parser.addoption(
         "--browser",
         action="store",
-        choices=["chrome", "firefox", "edge", "remote_chrome"],
+        choices=["chrome", "firefox", "edge", "remote_chrome", "remote_firefox"],
         default="chrome",
-        help="choose firefox or chrome or remote_chrome",
+        help="choose firefox or chrome or remote_chrome or remote_firefox",
     )

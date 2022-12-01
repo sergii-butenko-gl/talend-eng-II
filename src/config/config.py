@@ -31,8 +31,8 @@ class JSONConfigProvider(BaseProviderClass):
     @staticmethod
     def get(item_name: str) -> Any:
         value = JSONConfigProvider._read_config(
-            # "/framework/envs_configs/dev.json"
-            "/home/sbutenko/repos/LnD/talend-eng-II/envs_configs/dev.json"
+            "/framework/envs_configs/dev.json"
+            # "/home/sbutenko/repos/LnD/talend-eng-II/envs_configs/dev.json"
         )
         # return value[item_name]
         return value.get(item_name)
@@ -78,7 +78,7 @@ class Config:
 
 dict_confprovider = DictConfigProvider({
     'BROWSER': 'chrome',
-    'SELENIUM_GRID_URL': 'http://0.0.0.0:4444/wd/hub',
+    'SELENIUM_GRID_URL': 'http://172.19.0.2:4444/wd/hub', # 0.0.0.0 --> selenium-hub
     })
 
 config = Config([OSConfigProvider, JSONConfigProvider, dict_confprovider])

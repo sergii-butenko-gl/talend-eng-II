@@ -24,3 +24,6 @@ class BaseUIApp:
 
     def get_title(self):
         return self.driver.title
+
+    def close(self):
+        self.driver.quit()
